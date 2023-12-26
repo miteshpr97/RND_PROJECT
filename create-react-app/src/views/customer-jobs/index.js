@@ -304,20 +304,6 @@ const CustomerJobs = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
  
               <Link to="/customer-Details/">
                 <Button
@@ -329,14 +315,6 @@ const CustomerJobs = () => {
                 </Button>
 
               </Link> 
-
-
-
-
-
-
-
-
 
               <Button
                 type="submit"

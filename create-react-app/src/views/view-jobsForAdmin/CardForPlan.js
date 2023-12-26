@@ -73,6 +73,7 @@ const CardForPlan = () => {
     // Fetch Inside To Outside count
     axios.get(`{REACT_APP_API_URL}api/new_jobs/plan/insidetoutside`)
       .then(response => {
+        console.log(response.data.count, "lklkk")
         setInsideToOutsideCount(response.data.count);
       })
       .catch(error => {

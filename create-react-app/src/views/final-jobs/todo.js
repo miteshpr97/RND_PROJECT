@@ -3,7 +3,7 @@ import LogisticsAccordion from './LogisticsAccordion';
 import MHEAccordion from './MHEAccordion';
 import SpecialAccordion from './SpecialAccordion';
 import ManAccordion from './ManAccordion';
-import WorkAccordion from './WorkAccordion';
+
 import { useNavigate } from 'react-router';
 
 const Todo = ({ JobNo, handleSubmit }) => {
@@ -12,14 +12,14 @@ const Todo = ({ JobNo, handleSubmit }) => {
   const [mheExpanded, setMheExpanded] = useState(false);
   const [manExpanded, setmanExpanded] = useState(false);
   const [specialExpanded, setspecialExpanded] = useState(false);
-  const [workOrderExpanded, setworkOrderExpanded] = useState(false);
+
 
   // const [activeAccordion, setActiveAccordion] = useState(null);
   const [logisticsFormData, setLogisticsFormData] = useState([]);
   const [mheFormData, setMheFormData] = useState([]);
   const [manPowerFormData, setManPowerFormData] = useState([]);
   const [specialFormData, setSpecialFormData] = useState([]);
-  const [workOrderFormData, setworkOrderFormData] = useState([]);
+
 
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
@@ -39,9 +39,6 @@ const Todo = ({ JobNo, handleSubmit }) => {
     setspecialExpanded(!specialExpanded);
   };
 
-  const handleworkOrderAccordionChange = () => {
-    setworkOrderExpanded(!workOrderExpanded);
-  };
 
   const handleSubmitAllData = async () => {
     try {
@@ -133,21 +130,6 @@ const Todo = ({ JobNo, handleSubmit }) => {
 
 
 
-      const workOrderResponse = await fetch(`${REACT_APP_API_URL}api/workOrder`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(workOrderFormData)
-      });
-
-      if (workOrderResponse.ok) {
-        console.log('work Order data submitted successfully');
-        setworkOrderFormData([]);
-      } else {
-        console.error('Failed to work data');
-      }
-
       navigate('/close-jobs');
       window.location.reload();
       //  navigate('/close-jobs')
@@ -165,7 +147,7 @@ const Todo = ({ JobNo, handleSubmit }) => {
         formData={logisticsFormData}
         setFormData={setLogisticsFormData}
         jobNo={JobNo} // Pass the JobNo data here
-      />c
+      />
 
       {/* MHE Accordion */}
       <MHEAccordion
@@ -194,13 +176,7 @@ const Todo = ({ JobNo, handleSubmit }) => {
         jobNo={JobNo} // Pass the JobNo data here
       />
 
-      <WorkAccordion
-        expanded={workOrderExpanded}
-        onAccordionChange={handleworkOrderAccordionChange}
-        formData={workOrderFormData}
-        setFormData={setworkOrderFormData}
-        jobNo={JobNo} // Pass the JobNo data here
-      />
+      
 
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <button

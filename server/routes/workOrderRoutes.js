@@ -7,39 +7,66 @@ const router = express.Router();
 
 
 
+// router.post('/', (req, res) => {
+
+//   console.log('Incoming data:', req.body);
+
+//   const workOrder = req.body;
+
+//   const sql =
+//     'INSERT INTO tbWorkOrderDetails (JobNo, ServiceDescription, ServiceLineNo, UoM, ContractRate) VALUES ?';
+
+//   const values = workOrder.map(item => [
+//     item.JobNo,
+//     item.ServiceDescription,
+//     item.ServiceLineNo,
+//     item.UoM,
+//     item.ContractRate,
+//   ]);
+
+//   console.log('Values to be inserted:', values);
+
+//   db.query(sql, [values], (err, result) => {
+//     if (err) {
+//       console.error('MySQL query error:', err);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//       return;
+//     }
+
+//     console.log('Data inserted successfully');
+//     res.status(201).json({ message: 'Data inserted successfully' });
+//   });
+// })
+
+
+
+
 router.post('/', (req, res) => {
-  console.log('Incoming data:', req.body);
+  const {
+    ServiceDescription,
+    ServiceLineNo,
+    UoM,
+    ContractRate,
+  } = req.body;
 
-  const workOrder = req.body;
+  // Define the SQL query to insert a new item
+  const sql = 'INSERT INTO tbWorkOrderDetails (ServiceDescription, ServiceLineNo, UoM, ContractRate) VALUES (?, ?, ?, ?)';
 
-  const sql =
-    'INSERT INTO tbWorkOrderDetails (JobNo, ServiceDescription, ServiceLineNo, UoM, ContractRate) VALUES ?';
-
-  const values = workOrder.map(item => [
-    item.JobNo,
-    item.ServiceDescription,
-    item.ServiceLineNo,
-    item.UoM,
-    item.ContractRate,
-  ]);
-
-  console.log('Values to be inserted:', values);
-
-  db.query(sql, [values], (err, result) => {
-    if (err) {
-      console.error('MySQL query error:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
+  // Execute the SQL query to insert the item data
+  db.query(
+    sql,
+    [ServiceDescription, ServiceLineNo, UoM, ContractRate],
+    (err, result) => {
+      if (err) {
+        console.error('MySQL query error:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        console.log('Item data inserted:', result);
+        res.status(201).json({ message: 'Item data inserted successfully' });
+      }
     }
-
-    console.log('Data inserted successfully');
-    res.status(201).json({ message: 'Data inserted successfully' });
-  });
-})
-
-
-
-
+  );
+});
 
 
 

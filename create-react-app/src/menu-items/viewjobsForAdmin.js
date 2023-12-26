@@ -14,7 +14,7 @@ const viewjobsForAdmin = {
     children: [
       {
         id: 'planjobs',
-        title: 'View JobsForAdmin',
+        title: 'Ready For Plan',
         type: 'item',
         url: '/view-jobsForAdmin',
         icon: icons.AdminPanelSettingsOutlinedIcon ,

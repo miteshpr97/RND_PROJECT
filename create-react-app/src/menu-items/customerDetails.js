@@ -1,36 +1,4 @@
 
-// // assets
-// // import { IconBrandChrome, IconHelp } from '@tabler/icons';
-
-// import { IconX } from '@tabler/icons';
-
-// // constant
-// const icons = { IconX };
-
-
-// const customerDetails = {
-//     id: 'customerDetails-road',
-//     type: 'group',
-//     children: [
-//       {
-//         id: ' View Customer',
-//         title: ' View Customers',
-//         type: 'item',
-//         url: '/customer-Details/',
-//         icon: icons.IconX,
-//         breadcrumbs: false
-//       },
-//     ]
-//   };
-
-
-
-
-
-
-// export default customerDetails
-
-
 
 
 // assets

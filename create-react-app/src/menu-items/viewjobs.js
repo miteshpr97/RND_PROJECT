@@ -8,7 +8,7 @@ import SourceOutlinedIcon from '@mui/icons-material/SourceOutlined';
 const icons = {  SourceOutlinedIcon };
 
 
-const newjobs = {
+const viewjobs = {
     id: 'view-roadmap',
     type: 'group',
     children: [
@@ -24,5 +24,5 @@ const newjobs = {
     ]
   };
 
-export default newjobs
+export default viewjobs
 

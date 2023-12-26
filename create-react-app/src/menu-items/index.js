@@ -18,13 +18,15 @@ import customer from './customerjobs'
 
 import customerDetails from './customerDetails'
 
+import master from  './masterjobs'
+
 
 import finish from './finishjobs'
 
 // ==============================|| MENU ITEMS ||============================== //
 
 const menuItems = {
-  items: [dashboard,customer,customerDetails, newJobCreate, view, viewjobsForAdmin ,final, close, finish ,  pages, ]
+  items: [dashboard,customer,customerDetails, newJobCreate, view,master, viewjobsForAdmin ,final, close, finish ,  pages, ]
 };
 
 export default menuItems;

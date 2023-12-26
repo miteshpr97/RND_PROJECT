@@ -31,6 +31,8 @@ const CustomerDetails = Loadable(lazy(() => import('views/customer-Details')));
 
 const FinishJobsPage  = Loadable(lazy(() => import('views/finish-jobs')));
 
+const MasterJobs = Loadable(lazy(() => import('views/master-jobs')));
+
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -53,37 +55,6 @@ const MainRoutes = {
     },
 
     {
-      // path: 'new-jobs/:customerCode',
-      path: 'new-jobs',
-      element: <NewJobPage />
-    },
-
-
-
-    {
-      path: 'view-jobsForAdmin/',
-      element: <ViewJobForAdmin />
-    },
-
-    {
-      path: 'close-jobs',
-      element: <CloseJobsPage/>
-    },
-
-    
-    {
-      //  path: 'final-jobs',
-      path:'/final-jobs/:JobNo',
-      element: <FinalJobsPage/>
-    },
-    
-    {
-      path: 'view-jobs',
-      element: <ViewJobsPage/>
-    },
-
-      
-    {
       path: 'customer-jobs',
       element: <CustomerJobsPage/>
     },
@@ -93,7 +64,36 @@ const MainRoutes = {
       element: <CustomerDetails/>
     },
 
-    
+    {
+      // path: 'new-jobs/:customerCode',
+      path: 'new-jobs',
+      element: <NewJobPage />
+    },
+
+    {
+      path: 'view-jobs',
+      element: <ViewJobsPage/>
+    },
+
+    {
+      path: 'master-jobs',
+      element: <MasterJobs/>
+    },
+
+    {
+      path: 'view-jobsForAdmin/',
+      element: <ViewJobForAdmin />
+    }, 
+
+    {
+      //  path: 'final-jobs',
+      path:'/final-jobs/:JobNo',
+      element: <FinalJobsPage/>
+    },
+    {
+      path: 'close-jobs',
+      element: <CloseJobsPage/>
+    },
     {
       path: 'finish-jobs',
       element: <FinishJobsPage />
