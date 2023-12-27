@@ -1,3 +1,6 @@
+
+
+
 import React, { useState } from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -9,17 +12,19 @@ import { Container } from '@mui/system';
 import ViewTransporterModal from './ViewTransporterModal';
 
 const initialFormData = {
-  ServiceDescription: '',
-  ServiceLineNo: '',
-  UoM: '',
-  ContractRate: ''
+  Transporter_id: '',
+  Name: '',
+  Contact_Person: '',
+  Phone_Number: '',
+  Address: ''
 };
 
 export default function TransporterJob() {
   const [formData, setFormData] = useState(initialFormData); // Use object, not array
-  const [workOrderExpanded, setWorkOrderExpanded] = useState(true);
+  const [transporterExpanded, settransporterExpanded] = useState(true);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+
 
   const handleOpen = () => {
     setViewModalOpen(true);
@@ -40,7 +45,7 @@ export default function TransporterJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${REACT_APP_API_URL}api/workOrder`;
+      const url = `${REACT_APP_API_URL}api/transport`;
       console.log('Request URL:', url);
       console.log('Request Data:', JSON.stringify(formData));
 
@@ -69,15 +74,17 @@ export default function TransporterJob() {
   return (
     <div>
       <Accordion
-        expanded={workOrderExpanded}
-        onChange={() => setWorkOrderExpanded(!workOrderExpanded)}
+        expanded={transporterExpanded}
+        onChange={() => settransporterExpanded(!transporterExpanded)}
         sx={{ border: '0.5px solid #055F85', marginTop: '20px' }}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
           <Typography style={{ fontSize: '18px', color: 'black' }}>Transporter</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <form onSubmit={handleSubmit}>
+       
+
+        <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={6} md={3}>
                 <TextField
@@ -118,8 +125,8 @@ export default function TransporterJob() {
                   label="Phone Number"
                   fullWidth
                   variant="outlined"
-                  name="Phone_number"
-                  value={formData.Phone_number}
+                  name="Phone_Number"
+                  value={formData.Phone_Number}
                   onChange={(e) => handleChange(e, 'Phone_number')}
                 />
               </Grid>
@@ -148,7 +155,7 @@ export default function TransporterJob() {
                     Submit
                   </Button>
 
-                  {viewModalOpen && <ViewTransporterModal onClose={handleClose} />}
+                 {viewModalOpen && <ViewTransporterModal onClose={handleClose} />}
                 </Container>
 
 
@@ -156,8 +163,28 @@ export default function TransporterJob() {
 
               </Grid>      
           </form>
+
+
+          
         </AccordionDetails>
       </Accordion>
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

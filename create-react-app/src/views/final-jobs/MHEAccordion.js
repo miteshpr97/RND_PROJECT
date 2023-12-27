@@ -151,18 +151,8 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-              {/* <Grid item xs={3} md={2}>
-                <TextField
-                  label="Vehicle Category"
-                  fullWidth
-                  variant="outlined"
-                  name="VehicleCategory"
-                  value={formData.VehicleCategory}
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </Grid> */}
-
-              <Grid item xs={6} md={2}>
+          
+              {/* <Grid item xs={6} md={2}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Vehicle Category</InputLabel>
                   <Select
@@ -176,7 +166,7 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                    
                   </Select>
                 </FormControl>
-              </Grid>
+              </Grid> */}
 
 
 
@@ -194,8 +184,8 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                     onChange={(e) => handleChange(e, index)}
                   >
                     <MenuItem value="">Select</MenuItem>
-                    <MenuItem value="Option1">Crane</MenuItem>
-                    <MenuItem value="Option2">F15 Crane</MenuItem>
+                    <MenuItem value="Crane">Crane</MenuItem>
+                    <MenuItem value="F15 Crane">F15 Crane</MenuItem>
                     {/* <MenuItem value="Option3">Option3</MenuItem> */}
                   </Select>
                 </FormControl>

@@ -24,6 +24,7 @@ export default function Plan() {
   //   const [value, setValue] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(4); // Initialize page size
+  const [accordionExpanded, setAccordionExpanded] = useState(false);
 
   const totalPages = Math.ceil(data.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
@@ -40,6 +41,15 @@ export default function Plan() {
     setPageSize(parseInt(event.target.value, 10));
     setCurrentPage(1);
   };
+
+
+  const handleAccordionChange = (event, expanded) => {
+    setAccordionExpanded(expanded);
+    console
+  };
+
+
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -68,7 +78,13 @@ export default function Plan() {
 
   return (
     <div>
-      <Accordion  sx={{ border: '0.5px solid #055F85', marginTop: '20px' }} >
+      <Accordion 
+      expanded={accordionExpanded}
+      onChange={handleAccordionChange} // Add onChange prop
+      
+      
+      
+      sx={{ border: '0.5px solid #055F85', marginTop: '20px' }} >
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
         <Typography style={{ fontSize: '18px', color: 'black' }}>Plan Jobs</Typography>
         </AccordionSummary>
@@ -116,6 +132,8 @@ export default function Plan() {
                             borderRadius: '50%',
                             backgroundColor: '#ffd800'
                           }}
+
+                          onClick={() => setAccordionExpanded(false)}
                         ></IconButton>
                       </TableCell>
                     </TableRow>

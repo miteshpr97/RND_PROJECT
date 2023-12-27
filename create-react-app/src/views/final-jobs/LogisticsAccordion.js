@@ -146,16 +146,7 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-              {/* <Grid item xs={6} md={2}>
-                <TextField
-                  label="Vehicle Category"
-                  fullWidth
-                  variant="outlined"
-                  name="VehicleCategory"
-                  value={formData.VehicleCategory}
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </Grid> */}
+{/*              
               <Grid item xs={6} md={2}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Vehicle Category</InputLabel>
@@ -170,7 +161,7 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                    
                   </Select>
                 </FormControl>
-              </Grid>
+              </Grid> */}
 
 
 
@@ -188,8 +179,8 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                     onChange={(e) => handleChange(e, index)}
                   >
                     <MenuItem value="">Select</MenuItem>
-                    <MenuItem value="Option1">TATA ACE</MenuItem>
-                    <MenuItem value="Option2">LPT 407</MenuItem>
+                    <MenuItem value="TATA ACE">TATA ACE</MenuItem>
+                    <MenuItem value="LPT 407">LPT 407</MenuItem>
                     {/* <MenuItem value="Option3">Flated Truck</MenuItem> */}
                   </Select>
                 </FormControl>

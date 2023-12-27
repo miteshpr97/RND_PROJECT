@@ -206,10 +206,6 @@ router.get('/:JobNo', (req, res) => {
 });
 
 
-
-
-
-
 //Update a job by JobNo  for view JOb Only
 router.put('/:JobNo', (req, res) => {
   try {

@@ -9,10 +9,8 @@ import { Container } from '@mui/system';
 import ViewVehicleTypeModel from './ViewVehicleTypeModel';
 
 const initialFormData = {
-  ServiceDescription: '',
-  ServiceLineNo: '',
-  UoM: '',
-  ContractRate: ''
+  vehicle_category: '',
+  vehicle_type: ''
 };
 
 export default function VehicleType() {
@@ -20,7 +18,6 @@ export default function VehicleType() {
   const [workOrderExpanded, setWorkOrderExpanded] = useState(true);
   const [viewModalOpen, setViewModalOpen] = useState(false);
   const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
-
 
   const handleOpen = () => {
     setViewModalOpen(true);
@@ -41,7 +38,7 @@ export default function VehicleType() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `${REACT_APP_API_URL}api/workOrder`;
+      const url = `${REACT_APP_API_URL}api/vehicle`;
       console.log('Request URL:', url);
       console.log('Request Data:', JSON.stringify(formData));
 
@@ -80,14 +77,15 @@ export default function VehicleType() {
         <AccordionDetails>
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
+              
               <Grid item xs={6} md={3}>
                 <TextField
                   label="Vehicle Category"
                   fullWidth
                   variant="outlined"
-                  name="Vehicle_Category"
-                  value={formData.Vehicle_Category}
-                  onChange={(e) => handleChange(e, 'Vehicle_Category')}
+                  name="vehicle_category"
+                  value={formData.vehicle_category}
+                  onChange={(e) => handleChange(e, 'vehicle_category')}
                 />
               </Grid>
 
@@ -96,37 +94,24 @@ export default function VehicleType() {
                   label="Vehicle Type"
                   fullWidth
                   variant="outlined"
-                  name="Vehicle_Type"
-                  value={formData.Vehicle_Type}
-                  onChange={(e) => handleChange(e, 'Vehicle_Type')}
+                  name="vehicle_type"
+                  value={formData.vehicle_type}
+                  onChange={(e) => handleChange(e, 'vehicle_type')}
                 />
               </Grid>
 
-          
-
-              <Container
-              sx={{display:'flex', justifyContent:'space-between'}}
-              
-              >
-                <Button variant="contained" style={{ backgroundColor: '#15698c', color: 'white', marginTop: '10px' }} 
-                onClick={handleOpen}
-
-                >
+              <Container sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button variant="contained" style={{ backgroundColor: '#15698c', color: 'white', marginTop: '10px' }} onClick={handleOpen}>
                   view
                 </Button>
                 <Button variant="contained" style={{ backgroundColor: '#15698c', color: 'white', marginTop: '10px' }} type="submit">
                   Submit
                 </Button>
 
-                {viewModalOpen && <ViewVehicleTypeModel  onClose={handleClose} />}
+                {viewModalOpen && <ViewVehicleTypeModel onClose={handleClose} />}
               </Container>
             </Grid>
           </form>
-
-          
-
-
-          
         </AccordionDetails>
       </Accordion>
     </div>

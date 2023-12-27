@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, TextField, Button, Snackbar, Box, } from '@mui/material';
 import axios from 'axios';
 import MainCard from 'ui-component/cards/MainCard';
-import { Link } from 'react-router-dom';
+
 import { NavLink } from 'react-router-dom';
 
 
@@ -304,7 +304,7 @@ const CustomerJobs = () => {
 
 
 
- 
+{/*  
               <Link to="/customer-Details/">
                 <Button
                   type="submit"
@@ -314,7 +314,7 @@ const CustomerJobs = () => {
                   View Customer
                 </Button>
 
-              </Link> 
+              </Link>  */}
 
               <Button
                 type="submit"

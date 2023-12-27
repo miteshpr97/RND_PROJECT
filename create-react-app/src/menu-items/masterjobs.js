@@ -13,7 +13,7 @@ const masterjobs = {
     children: [
       {
         id: 'master-page',
-        title: 'Master Jobs ',
+        title: 'Master',
         type: 'item',
         url: '/master-jobs',
         icon: icons.ContactsOutlinedIcon,

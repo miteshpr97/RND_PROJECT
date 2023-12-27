@@ -42,6 +42,7 @@ const EditDialog = ({ open, handleClose, jobId }) => {
     }));
   };
 
+
   useEffect(() => {
     console.log('Component mounted');
 
@@ -70,6 +71,8 @@ const EditDialog = ({ open, handleClose, jobId }) => {
     };
   }, [jobId]);
 
+
+  
   const handleSubmit = () => {
     // Create an object containing the updated data
     const updatedData = {

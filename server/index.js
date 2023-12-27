@@ -9,6 +9,8 @@ const logistics = require('./routes/logistics');
 const manPowerRoutes = require('./routes/manPowerRoutes');
 const specialPackageRoutes = require('./routes/specialPackageRoutes');
 const workOrderRoutes = require('./routes/workOrderRoutes')
+const transporterRoutes = require('./routes/transporterRoutes')
+const vehicleDetailsRoutes = require('./routes/vehicleDetailsRoutes')
 
 
 const mhe = require('./routes/mhe');
@@ -48,6 +50,11 @@ app.use('/api/special', specialPackageRoutes);
 
 //use workOrderRoutes 
 app.use('/api/workOrder', workOrderRoutes );
+
+
+ app.use('/api/transport', transporterRoutes );
+
+ app.use('/api/vehicle', vehicleDetailsRoutes );
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -10,7 +10,7 @@ const MasterJobs = () => {
  
 
   return (
-    <MainCard title=" Master Jobs">
+    <MainCard title=" Master ">
 
         <div>
         <WorkOrder/>
