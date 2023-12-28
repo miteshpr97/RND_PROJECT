@@ -59,7 +59,6 @@ const NewJobs = () => {
 
 
   useEffect(() => {
-   
     const fetchLastJobNo = async () => {
       try {
         const response = await fetch(`${REACT_APP_API_URL}api/new_jobs/last-job-no`, {
@@ -95,15 +94,6 @@ const NewJobs = () => {
     
     // Call the fetchLastJobNo function when
     
-    
-   
-
-
-
-
-
-
-
 
     fetchLastJobNo();
   }, []);

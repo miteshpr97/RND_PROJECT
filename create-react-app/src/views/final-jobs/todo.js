@@ -81,7 +81,7 @@ const Todo = ({ JobNo, handleSubmit }) => {
       }
 
       // Submit MHE Data
-      const mheResponse = await fetch(`${REACT_APP_API_URL}http://localhost:3306/api/mhe`, {
+      const mheResponse = await fetch(`${REACT_APP_API_URL}api/mhe`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -6,7 +6,7 @@ import { Grid, TextField } from '@mui/material';
 
 import MainCard from 'ui-component/cards/MainCard';
 
-const EditDialog = ({ open, handleClose, WorkOrderNo }) => {
+const EditDialog = ({ open, handleClose, ServiceLineNo }) => {
   const [formData, setFormData] = useState({
     ServiceDescription: '',
     ServiceLineNo: '',
@@ -20,9 +20,9 @@ const EditDialog = ({ open, handleClose, WorkOrderNo }) => {
   useEffect(() => {
     console.log('Component mounted');
 
-    if (WorkOrderNo) {
+    if (ServiceLineNo) {
       axios
-        .get(`${REACT_APP_API_URL}api/workOrder/${WorkOrderNo}`)
+        .get(`${REACT_APP_API_URL}api/workOrder/${ServiceLineNo}`)
         .then((response) => {
           console.log('API response:', response.data);
 
@@ -38,7 +38,7 @@ const EditDialog = ({ open, handleClose, WorkOrderNo }) => {
     return () => {
       console.log('Component unmounted');
     };
-  }, [WorkOrderNo]); // Include WorkOrderNo in the dependency array if it's used in the useEffect
+  }, [ServiceLineNo]); // Include ServiceLineNo in the dependency array if it's used in the useEffect
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -64,7 +64,7 @@ const EditDialog = ({ open, handleClose, WorkOrderNo }) => {
 
     // Send a PUT request to update the data
     axios
-      .patch(`${REACT_APP_API_URL}api/workOrder/${WorkOrderNo}`, updatedData)
+      .patch(`${REACT_APP_API_URL}api/workOrder/${ServiceLineNo}`, updatedData)
       .then((response) => {
         console.log('Data updated successfully:', response.data);
         // Show a success message (you can customize this)
@@ -94,7 +94,7 @@ const EditDialog = ({ open, handleClose, WorkOrderNo }) => {
     >
       <DialogContent>
         <MainCard title="Work OrderEdit">
-          {console.log(WorkOrderNo)}
+          {console.log(ServiceLineNo)}
           <Grid container spacing={3}>
             <Grid item xs={6} md={3}>
               <TextField

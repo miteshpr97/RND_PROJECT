@@ -67,7 +67,7 @@ const ViewJobsForAdmin = () => {
 
   return (
     <MainCard
-      title="Plan Jobs"
+      title="Ready For Plan"
       secondary={
         <Link to="/new-jobs/" style={{ textDecoration: 'none' }}>
           <Button variant="contained" style={{ backgroundColor: '#15698c', color: 'white' }}>

@@ -6,9 +6,9 @@ import { Grid, TextField } from '@mui/material';
 
 import MainCard from 'ui-component/cards/MainCard';
 
-const EditDialog = ({ open, handleClose, Transporter_id }) => {
+const EditDialog = ({ open, handleClose, TransporterID }) => {
   const [formData, setFormData] = useState({
-    Transporter_id: '',
+    TransporterID: '',
     Name: '',
     Contact_Person: '',
     Phone_Number: '',
@@ -25,9 +25,9 @@ const EditDialog = ({ open, handleClose, Transporter_id }) => {
   useEffect(() => {
     console.log('Component mounted');
 
-    if (Transporter_id ) {
+    if (TransporterID ) {
       axios
-        .get(`${REACT_APP_API_URL}api/transport/${Transporter_id}`)
+        .get(`${REACT_APP_API_URL}api/transport/${TransporterID}`)
         .then((response) => {
           console.log('API response:', response.data);
 
@@ -44,7 +44,7 @@ const EditDialog = ({ open, handleClose, Transporter_id }) => {
     return () => {
       console.log('Component unmounted');
     };
-  }, [Transporter_id]); // Include WorkOrderNo in the dependency array if it's used in the useEffect
+  }, [TransporterID]); // Include WorkOrderNo in the dependency array if it's used in the useEffect
 
 
 
@@ -65,7 +65,7 @@ const EditDialog = ({ open, handleClose, Transporter_id }) => {
   const handleSubmit = () => {
     // Create an object containing the updated data
     const updatedData = {
-      Transporter_id: formData.Transporter_id,
+      TransporterID: formData.TransporterID,
       Name: formData.Name,
       Contact_Person: formData.Contact_Person,
       Phone_Number: formData.Phone_Number,
@@ -76,7 +76,7 @@ const EditDialog = ({ open, handleClose, Transporter_id }) => {
 
     // Send a PUT request to update the data
     axios
-      .patch(`${REACT_APP_API_URL}api/transport/${Transporter_id}`, updatedData)
+      .patch(`${REACT_APP_API_URL}api/transport/${TransporterID}`, updatedData)
       .then((response) => {
         console.log('Data updated successfully:', response.data);
         // Show a success message (you can customize this)
@@ -106,19 +106,19 @@ const EditDialog = ({ open, handleClose, Transporter_id }) => {
     >
       <DialogContent>
         <MainCard title="TransportEdit">
-          {console.log(Transporter_id)}
+          {console.log(TransporterID)}
 
 
 
            <Grid container spacing={2}>
               <Grid item xs={6} md={3}>
                 <TextField
-                  label="Transporter_id"
+                  label="TransporterID"
                   fullWidth
                   variant="outlined"
-                  name="Transporter_id"
-                  value={formData.Transporter_id}
-                  onChange={(e) => handleChange(e, 'Transporter_id')}
+                  name="TransporterID"
+                  value={formData.TransporterID}
+                  onChange={(e) => handleChange(e, 'TransporterID')}
                 />
               </Grid>
 

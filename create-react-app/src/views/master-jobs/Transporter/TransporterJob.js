@@ -12,7 +12,7 @@ import { Container } from '@mui/system';
 import ViewTransporterModal from './ViewTransporterModal';
 
 const initialFormData = {
-  Transporter_id: '',
+  TransporterID: '',
   Name: '',
   Contact_Person: '',
   Phone_Number: '',
@@ -88,12 +88,12 @@ export default function TransporterJob() {
             <Grid container spacing={2}>
               <Grid item xs={6} md={3}>
                 <TextField
-                  label="Transporter_id"
+                  label="TransporterID"
                   fullWidth
                   variant="outlined"
-                  name="Transporter_id"
-                  value={formData.Transporter_id}
-                  onChange={(e) => handleChange(e, 'Transporter_id')}
+                  name="TransporterID"
+                  value={formData.TransporterID}
+                  onChange={(e) => handleChange(e, 'TransporterID')}
                 />
               </Grid>
 

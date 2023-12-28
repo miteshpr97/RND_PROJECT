@@ -1,4 +1,3 @@
-
 // components/LogisticsAccordion.js
 import React, { useState } from 'react';
 import {
@@ -12,10 +11,11 @@ import {
   Select,
   Typography,
   TextField,
-  Grid,
+  Grid
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useEffect } from 'react';
 
 const initialFormData = {
   JobNo: '',
@@ -28,21 +28,16 @@ const initialFormData = {
   WOLineNo: '',
   TaskDate: '',
   BuyCost: '',
-  TripCount: '',
+  TripCount: ''
 };
 
-const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }) => {
+const LogisticsAccordion = ({ expanded, onAccordionChange, setFormData, jobNo }) => {
   const [formList, setFormList] = useState([initialFormData]);
+  const [transportCodes, setTransportCodes] = useState([]);
 
-  // const handleChange = (e, index) => {
-  //   const { name, value } = e.target;
-  //   const updatedFormList = [...formList];
-  //   updatedFormList[index] = { ...updatedFormList[index], [name]: value };
-  //   setFormList(updatedFormList);
-  //   setFormData(updatedFormList); // Update the parent component's formData
-  // };
+  const [workOrderData, setworkOrderData] = useState([]);
 
-
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
   const handleChange = (e, index) => {
     const { name, value } = e.target;
@@ -51,26 +46,15 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
       ...updatedFormList[index],
       [name]: value,
       // Preserve the existing JobNo
-      JobNo: index === 0 ? jobNo : updatedFormList[index].JobNo,
+      JobNo: index === 0 ? jobNo : updatedFormList[index].JobNo
     };
     setFormList(updatedFormList);
     setFormData(updatedFormList); // Update the parent component's formData
   };
-  
-
-
-
-  // const handleAddForm = () => {
-  //   setFormList([...formList, { ...initialFormData }]);
-  // };
-
 
   const handleAddForm = () => {
     setFormList([...formList, { ...initialFormData, JobNo: jobNo }]);
   };
-  
-
-
 
   const handleDeleteForm = (index) => {
     if (index !== 0) {
@@ -81,13 +65,78 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
     }
   };
 
+
+
+  useEffect(() => {
+    async function fetchTransporter() {
+      try {
+        const response = await fetch(`${REACT_APP_API_URL}api/transport`);
+        if (response.ok) {
+          const transporterData = await response.json();
+
+          const codesAndNames = transporterData.map((transport) => ({
+            TransporterID: transport.TransporterID,
+            Name: transport.Name
+          }));
+          setTransportCodes(codesAndNames);
+        } else console.error('Error fetching customer data');
+      } catch (error) {
+        console.error('Error fetching customer data:', error);
+      }
+    }
+    fetchTransporter();
+  }, []);
+
+  
+  const transporterDetails = transportCodes.map((transporter) => (
+    <MenuItem key={transporter.TransporterID} value={transporter.TransporterID}>
+      {`${transporter.TransporterID} - ${transporter.Name}`}
+    </MenuItem>
+  ));
+
+  useEffect(() => {
+    async function fetchWorkOrder() {
+      try {
+        const response = await fetch(`${REACT_APP_API_URL}api/workOrder/orderByOne`);
+        if (response.ok) {
+          const workOrderData = await response.json();
+          console.log(workOrderData, 'data dilkjhao');
+
+          const codesAndNames = workOrderData.map((workOrder) => ({
+            ServiceLineNo: workOrder.ServiceLineNo,
+            UoM: workOrder.UoM,
+            ContractRate: workOrder.ContractRate
+          }));
+          setworkOrderData(codesAndNames);
+        } else console.error('Error fetching customer data');
+      } catch (error) {
+        console.error('Error fetching customer data:', error);
+      }
+    }
+
+    fetchWorkOrder();
+
+    // Include dependencies in the array if there are any
+  }, []); // <-- Add dependencies here if needed
+
+
+  console.log(workOrderData, "klsjdkjjd")
+
+  const workDetails = workOrderData.map((workOrder) => (
+    <MenuItem key={workOrder.ServiceLineNo} value={workOrder.ServiceLineNo}>
+      {`${workOrder.ServiceLineNo}`}
+    </MenuItem>
+  ));
+
+  const workDetailsUOM = workOrderData.map((UOMData) => (
+    <MenuItem key={UOMData.UoM} value={UOMData.UoM}>
+      {`${UOMData.UoM}`}
+    </MenuItem>
+  ));
+
   return (
     <Accordion expanded={expanded} sx={{ border: '0.5px solid #055F85', marginTop: '20px' }}>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        onClick={onAccordionChange}
-        sx={{ borderBottom: '1px solid #055F85' }}
-      >
+      <AccordionSummary expandIcon={<ExpandMoreIcon />} onClick={onAccordionChange} sx={{ borderBottom: '1px solid #055F85' }}>
         <Typography variant="h3">Logistics</Typography>
       </AccordionSummary>
       <AccordionDetails>
@@ -95,17 +144,13 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
           <Typography variant="subtitle1" gutterBottom>
             Vehicles are used for this job
           </Typography>
-          <Button
-            variant="contained"
-            style={{ backgroundColor: '#055f85', color: 'white' }}
-            onClick={handleAddForm}
-          >
+          <Button variant="contained" style={{ backgroundColor: '#055f85', color: 'white' }} onClick={handleAddForm}>
             +Add Logistics
           </Button>
         </div>
         <br />
         {formList.map((formData, index) => (
-          <form key={index} >
+          <form key={index}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px' }}>
               {index !== 0 && (
                 <Button
@@ -113,7 +158,7 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                     marginBottom: '20px',
                     marginLeft: 'auto',
                     backgroundColor: '#f7114a',
-                    color: 'white',
+                    color: 'white'
                   }}
                   variant="contained"
                   onClick={() => handleDeleteForm(index)}
@@ -123,20 +168,18 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                 </Button>
               )}
             </div>
-            <Grid container spacing={3}> 
-              
+            <Grid container spacing={3}>
               <Grid item xs={6} md={2}>
                 <TextField
                   label="Job No"
                   fullWidth
                   variant="outlined"
-                  name="JobNo"    
-                   value={formData.JobNo === '' ? jobNo : formData.JobNo}
+                  name="JobNo"
+                  value={formData.JobNo === '' ? jobNo : formData.JobNo}
                   onChange={(e) => handleChange(e, index)}
-                  
                 />
               </Grid>
-              <Grid item xs={6} md={2}>
+              {/* <Grid item xs={6} md={2}>
                 <TextField
                   label="Transporter ID"
                   fullWidth
@@ -145,25 +188,27 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   value={formData.TransporterID}
                   onChange={(e) => handleChange(e, index)}
                 />
-              </Grid>
-{/*              
-              <Grid item xs={6} md={2}>
-                <FormControl fullWidth variant="outlined">
-                  <InputLabel>Vehicle Category</InputLabel>
-                  <Select
-                    label="Vehicle Category"
-                    name="VehicleCategory"
-                    value={formData.VehicleCategory}
-                    onChange={(e) => handleChange(e, index)}
-                  >
-                    <MenuItem value="">Select</MenuItem>
-                    <MenuItem value="Option1">Truck</MenuItem>
-                   
-                  </Select>
-                </FormControl>
+               
               </Grid> */}
 
 
+              <Grid item xs={6} md={2}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Transporter ID</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="Transporter ID"
+                    name="TransporterID"
+                    value={formData.TransporterID}
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Transporter ID
+                    </MenuItem>
+                    {transporterDetails}
+                  </Select>
+                </FormControl>
+              </Grid>
 
 
 
@@ -172,12 +217,7 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
               <Grid item xs={6} md={2}>
                 <FormControl fullWidth variant="outlined">
                   <InputLabel>Vehicle Type</InputLabel>
-                  <Select
-                    label="Vehicle Type"
-                    name="VehicleType"
-                    value={formData.VehicleType}
-                    onChange={(e) => handleChange(e, index)}
-                  >
+                  <Select label="Vehicle Type" name="VehicleType" value={formData.VehicleType} onChange={(e) => handleChange(e, index)}>
                     <MenuItem value="">Select</MenuItem>
                     <MenuItem value="TATA ACE">TATA ACE</MenuItem>
                     <MenuItem value="LPT 407">LPT 407</MenuItem>
@@ -185,8 +225,6 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   </Select>
                 </FormControl>
               </Grid>
-
-
               <Grid item xs={6} md={2}>
                 <TextField
                   label="VehicleNo"
@@ -207,7 +245,35 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
+              {/* <Grid item xs={6} md={2}>
+                <TextField
+                 
+                  fullWidth
+                  variant="outlined"
+                  name="WOLineNo"
+                  
+                  onChange={(e) => handleChange(e, index)}
+                />
+              </Grid> */}
               <Grid item xs={6} md={2}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>WOLine No</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="WOLine No"
+                    name="WOLineNo"
+                    value={formData.WOLineNo}
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select WOLine No
+                    </MenuItem>
+                    {workDetails}
+                  </Select>
+                </FormControl>
+              </Grid>
+              {/* workDetailsUOM */}
+              {/* <Grid item xs={6} md={2}>
                 <TextField
                   label="UoM"
                   fullWidth
@@ -216,17 +282,28 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   value={formData.UoM}
                   onChange={(e) => handleChange(e, index)}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item xs={6} md={2}>
-                <TextField
-                  label="WOLine No"
-                  fullWidth
-                  variant="outlined"
-                  name="WOLineNo"
-                  value={formData.WOLineNo}
-                  onChange={(e) => handleChange(e, index)}
-                />
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>UOM</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="UoM"
+                    name="UoM"
+                    value={formData.UoM}
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select UOM
+                    </MenuItem>
+                    {workDetailsUOM}
+                  </Select>
+                </FormControl>
               </Grid>
+
+
+
+
               <Grid item xs={6} md={2}>
                 <TextField
                   label="Task Date"
@@ -235,7 +312,7 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
                   name="TaskDate"
                   type="date"
                   InputLabelProps={{
-                    shrink: true,
+                    shrink: true
                   }}
                   value={formData.TaskDate}
                   onChange={(e) => handleChange(e, index)}
@@ -274,6 +351,11 @@ const LogisticsAccordion = ({ expanded, onAccordionChange,  setFormData, jobNo }
 };
 
 export default LogisticsAccordion;
+
+
+
+
+
 
 
 

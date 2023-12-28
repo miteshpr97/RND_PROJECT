@@ -10,7 +10,7 @@ import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 const ViewTransporterModal = ({ onClose }) => {
   const [data, setData] = useState([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [selecteTransporter_id, setselecteTransporter_id] = useState(null);
+  const [selecteTransporterID, setselecteTransporterID] = useState(null);
 //  const [selectedJobId, setSelectedJobId] = useState(null);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false); 
 
@@ -71,10 +71,10 @@ const ViewTransporterModal = ({ onClose }) => {
 
 
 
-  const handleEditClick = (Transporter_id) => {
-    console.log(Transporter_id ,"singledata")
+  const handleEditClick = (TransporterID) => {
+    console.log(TransporterID ,"singledata")
     setEditDialogOpen(true);
-    setselecteTransporter_id(Transporter_id);
+    setselecteTransporterID(TransporterID);
   };
 
   const handleCloseEditDialog = () => {
@@ -82,8 +82,8 @@ const ViewTransporterModal = ({ onClose }) => {
   };
 
 
-  const handleDeleteConfirmDialogOpen = (Transporter_id) => {
-    setselecteTransporter_id(Transporter_id);
+  const handleDeleteConfirmDialogOpen = (TransporterID) => {
+    setselecteTransporterID(TransporterID);
     setDeleteConfirmationOpen(true);
   };
 
@@ -93,15 +93,15 @@ const ViewTransporterModal = ({ onClose }) => {
 
 
 
-  const handleDeleteClick = (Transporter_id) => {
+  const handleDeleteClick = (TransporterID) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
-      deleteItem(Transporter_id);
+      deleteItem(TransporterID);
     }
   };
 
-  const deleteItem = async (Transporter_id) => {
+  const deleteItem = async (TransporterID) => {
     try {
-      const response = await fetch(`${REACT_APP_API_URL}api/transport/${Transporter_id}`, {
+      const response = await fetch(`${REACT_APP_API_URL}api/transport/${TransporterID}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -140,7 +140,7 @@ const ViewTransporterModal = ({ onClose }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className='small-text'>Transporter_id</TableCell>
+              <TableCell className='small-text'>TransporterID</TableCell>
               <TableCell className='small-text'>Name</TableCell>
               <TableCell className='small-text'>Contact Person</TableCell>
               <TableCell className='small-text'>Phone Number</TableCell>
@@ -152,7 +152,7 @@ const ViewTransporterModal = ({ onClose }) => {
           <TableBody>
             {displayedData.map((item, index) => (
               <TableRow key={index}>
-                <TableCell className='small-text'>{item.Transporter_id}</TableCell>
+                <TableCell className='small-text'>{item.TransporterID}</TableCell>
                 <TableCell className='small-text'>{item.Name}</TableCell>
                 <TableCell className='small-text'>{item.Contact_Person}</TableCell>
                 <TableCell className='small-text'>{item.Phone_Number}</TableCell>
@@ -162,7 +162,7 @@ const ViewTransporterModal = ({ onClose }) => {
                     <EditNoteIcon
                      variant="contained"
                      style={{color: 'black', cursor: 'pointer'  }}
-                     onClick={() => handleEditClick(item.Transporter_id)}
+                     onClick={() => handleEditClick(item.TransporterID)}
                     
                     />
                 
@@ -171,7 +171,7 @@ const ViewTransporterModal = ({ onClose }) => {
                     <DeleteIcon
                      variant="contained"
                      style={{ color: 'red', cursor: 'pointer' }}
-                     onClick={() => handleDeleteConfirmDialogOpen(item.Transporter_id)}
+                     onClick={() => handleDeleteConfirmDialogOpen(item.TransporterID)}
                     /> 
                   </TableCell>
               </TableRow>
@@ -195,14 +195,14 @@ const ViewTransporterModal = ({ onClose }) => {
           Close
         </Button>
 
-        <EditDialog open={editDialogOpen} handleClose={handleCloseEditDialog} Transporter_id={selecteTransporter_id} />
+        <EditDialog open={editDialogOpen} handleClose={handleCloseEditDialog} TransporterID={selecteTransporterID} />
      
         <DeleteConfirmationDialog
         open={deleteConfirmationOpen}
         handleClose={handleDeleteConfirmDialogClose}
         handleDelete={() => {
           // Handle the delete action here and then close the dialog
-          handleDeleteClick(selecteTransporter_id);
+          handleDeleteClick(selecteTransporterID);
           handleDeleteConfirmDialogClose();
         }}
       />

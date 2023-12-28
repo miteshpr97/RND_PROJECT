@@ -371,89 +371,6 @@ router.put('/closed/:JobNo', (req, res) => {
 
 
 
-
-
-
-// router.put('/closed/:JobNo', (req, res) => {
-//   try {
-//     const { JobNo } = req.params;
-//     const updatedJobData = req.body;
-
-//     // Check if the job with the specified JobNo exists
-//     const checkExistenceQuery = 'SELECT * FROM tbNewJobs WHERE JobNo = ?';
-//     db.query(checkExistenceQuery, [JobNo], (err, rows) => {
-//       if (err) {
-//         console.error('MySQL query error:', err);
-//         return res.status(500).json({ error: 'Internal Server Error' });
-//       }
-
-//       if (rows.length === 0) {
-//         return res.status(404).json({ error: 'Job not found' });
-//       }
-
-//       // Update the job data, including setting JobsStatus to 3 and updating JobsClosingDate
-//       const updateQuery = 'UPDATE tbNewJobs SET JobsStatus = ?, JobsClosingDate = CURRENT_DATE() WHERE JobNo = ?';
-//       const values = ['3', JobNo];
-//       db.query(updateQuery, values, (err, result) => {
-//         if (err) {
-//           console.error('MySQL query error:', err);
-//           res.status(500).json({ error: 'Internal Server Error' });
-//         } else {
-//           console.log('Job data updated:', result);
-//           res.status(200).json({ message: 'Job data updated successfully' });
-//         }
-//       });
-//     });
-//   } catch (err) {
-//     console.error('Error handling job update:', err);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
-
-
-// router.put('/closed/:JobNo', (req, res) => {
-//   try {
-//     const { JobNo } = req.params;
-//     const updatedJobData = req.body;
-
-//     // Check if the job with the specified JobNo exists
-//     const checkExistenceQuery = 'SELECT * FROM tbNewJobs WHERE JobNo = ?';
-//     db.query(checkExistenceQuery, [JobNo], (err, rows) => {
-//       if (err) {
-//         console.error('MySQL query error:', err);
-//         return res.status(500).json({ error: 'Internal Server Error' });
-//       }
-
-//       if (rows.length === 0) {
-//         return res.status(404).json({ error: 'Job not found' });
-//       }
-
-//       // Get the current date in the "dd/mm/yyyy" format
-//       const currentDate = new Date().toLocaleDateString('en-GB');
-
-//       // Update the job data, including setting JobsStatus to 3 and updating JobsClosingDate
-//       const updateQuery = 'UPDATE tbNewJobs SET JobsStatus = ?, JobsClosingDate = ? WHERE JobNo = ?';
-//       const values = ['3', currentDate, JobNo];
-//       db.query(updateQuery, values, (err, result) => {
-//         if (err) {
-//           console.error('MySQL query error:', err);
-//           res.status(500).json({ error: 'Internal Server Error' });
-//         } else {
-//           console.log('Job data updated:', result);
-//           res.status(200).json({ message: 'Job data updated successfully' });
-//         }
-//       });
-//     });
-//   } catch (err) {
-//     console.error('Error handling job update:', err);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
-
-
-
 // using Jobno delete 
 router.delete('/:JobNo', (req, res) => {
   const { JobNo } = req.params;
@@ -714,7 +631,6 @@ router.get('/plan/outsideToutside', (req, res) => {
 
 
 
-// for close page show count
 
 
 
@@ -1076,11 +992,6 @@ router.get('/finish/jobTransactions', (req, res) => {
     res.json(results);
   });
 });
-
-
-
-
-
 
 
 // Export the router

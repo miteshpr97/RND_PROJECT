@@ -10,7 +10,7 @@ import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 const ViewWorkOrderModal = ({ onClose }) => {
   const [data, setData] = useState([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [selecteWorkOrderNo, setselecteWorkOrderNo] = useState(null);
+  const [selecteServiceLineNo, setselecteServiceLineNo] = useState(null);
 //  const [selectedJobId, setSelectedJobId] = useState(null);
   const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false); 
 
@@ -71,10 +71,10 @@ const ViewWorkOrderModal = ({ onClose }) => {
 
 
 
-  const handleEditClick = (WorkOrderNo) => {
-    console.log(WorkOrderNo ,"singledata")
+  const handleEditClick = (ServiceLineNo) => {
+    console.log(ServiceLineNo ,"singledata")
     setEditDialogOpen(true);
-    setselecteWorkOrderNo(WorkOrderNo);
+    setselecteServiceLineNo(ServiceLineNo);
   };
 
   const handleCloseEditDialog = () => {
@@ -82,8 +82,8 @@ const ViewWorkOrderModal = ({ onClose }) => {
   };
 
 
-  const handleDeleteConfirmDialogOpen = (WorkOrderNo) => {
-    setselecteWorkOrderNo(WorkOrderNo);
+  const handleDeleteConfirmDialogOpen = (ServiceLineNo) => {
+    setselecteServiceLineNo(ServiceLineNo);
     setDeleteConfirmationOpen(true);
   };
 
@@ -93,15 +93,15 @@ const ViewWorkOrderModal = ({ onClose }) => {
 
 
 
-  const handleDeleteClick = (WorkOrderNo) => {
+  const handleDeleteClick = (ServiceLineNo) => {
     if (window.confirm('Are you sure you want to delete this item?')) {
-      deleteItem(WorkOrderNo);
+      deleteItem(ServiceLineNo);
     }
   };
 
-  const deleteItem = async (WorkOrderNo) => {
+  const deleteItem = async (ServiceLineNo) => {
     try {
-      const response = await fetch(`${REACT_APP_API_URL}api/workOrder/${WorkOrderNo}`, {
+      const response = await fetch(`${REACT_APP_API_URL}api/workOrder/${ServiceLineNo}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
@@ -160,7 +160,7 @@ const ViewWorkOrderModal = ({ onClose }) => {
                     <EditNoteIcon
                      variant="contained"
                      style={{color: 'black', cursor: 'pointer'  }}
-                     onClick={() => handleEditClick(item.WorkOrderNo)}
+                     onClick={() => handleEditClick(item.ServiceLineNo)}
                     
                     />
                 
@@ -169,7 +169,7 @@ const ViewWorkOrderModal = ({ onClose }) => {
                     <DeleteIcon
                      variant="contained"
                      style={{ color: 'red', cursor: 'pointer' }}
-                     onClick={() => handleDeleteConfirmDialogOpen(item.WorkOrderNo)}
+                     onClick={() => handleDeleteConfirmDialogOpen(item.ServiceLineNo)}
                     /> 
                   </TableCell>
               </TableRow>
@@ -193,14 +193,14 @@ const ViewWorkOrderModal = ({ onClose }) => {
           Close
         </Button>
 
-        <EditDialog open={editDialogOpen} handleClose={handleCloseEditDialog} WorkOrderNo={selecteWorkOrderNo} />
+        <EditDialog open={editDialogOpen} handleClose={handleCloseEditDialog} ServiceLineNo={selecteServiceLineNo} />
      
         <DeleteConfirmationDialog
         open={deleteConfirmationOpen}
         handleClose={handleDeleteConfirmDialogClose}
         handleDelete={() => {
           // Handle the delete action here and then close the dialog
-          handleDeleteClick(selecteWorkOrderNo);
+          handleDeleteClick(selecteServiceLineNo);
           handleDeleteConfirmDialogClose();
         }}
       />

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Accordion,
   AccordionSummary,
@@ -31,6 +31,12 @@ const initialFormData = {
 
 const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
   const [formList, setFormList] = useState([initialFormData]);
+
+  const [transportCodes, setTransportCodes] = useState([]);
+
+  const [workOrderData, setworkOrderData] = useState([]);
+
+  const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
   // const handleChange = (e, index) => {
   //   const { name, value } = e.target;
@@ -73,6 +79,75 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
     setFormList(updatedFormList);
   };
 
+
+
+
+
+  useEffect(() => {
+    async function fetchTransporter() {
+      try {
+        const response = await fetch(`${REACT_APP_API_URL}api/transport`);
+        if (response.ok) {
+          const transporterData = await response.json();
+
+          const codesAndNames = transporterData.map((transport) => ({
+            TransporterID: transport.TransporterID,
+            Name: transport.Name
+          }));
+          setTransportCodes(codesAndNames);
+        } else console.error('Error fetching customer data');
+      } catch (error) {
+        console.error('Error fetching customer data:', error);
+      }
+    }
+    fetchTransporter();
+  }, []);
+
+  const transporterDetails = transportCodes.map((transporter) => (
+    <MenuItem key={transporter.TransporterID} value={transporter.TransporterID}>
+      {`${transporter.TransporterID} - ${transporter.Name}`}
+    </MenuItem>
+  ));
+
+  useEffect(() => {
+    async function fetchWorkOrder() {
+      try {
+        const response = await fetch(`${REACT_APP_API_URL}api/workOrder/orderByTwo`);
+        if (response.ok) {
+          const workOrderData = await response.json();
+          console.log(workOrderData, 'data dilkjhao jldi sala');
+
+          const codesAndNames = workOrderData.map((workOrder) => ({
+            ServiceLineNo: workOrder.ServiceLineNo,
+            UoM: workOrder.UoM,
+            ContractRate: workOrder.ContractRate
+          }));
+          setworkOrderData(codesAndNames);
+        } else console.error('Error fetching customer data');
+      } catch (error) {
+        console.error('Error fetching customer data:', error);
+      }
+    }
+
+    fetchWorkOrder();
+
+    // Include dependencies in the array if there are any
+  }, []); // <-- Add dependencies here if needed
+
+
+
+
+  const workDetails = workOrderData.map((workOrder) => (
+    <MenuItem key={workOrder.ServiceLineNo} value={workOrder.ServiceLineNo}>
+      {`${workOrder.ServiceLineNo}`}
+    </MenuItem>
+  ));
+
+  const workDetailsUOM = workOrderData.map((UOMData) => (
+    <MenuItem key={UOMData.UoM} value={UOMData.UoM}>
+      {`${UOMData.UoM}`}
+    </MenuItem>
+  ));
 
 
   return (
@@ -141,15 +216,25 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-              <Grid item xs={3} md={2}>
-                <TextField
-                  label="Transporter ID"
-                  fullWidth
-                  variant="outlined"
-                  name="TransporterID"
-                  value={formData.TransporterID}
-                  onChange={(e) => handleChange(e, index)}
-                />
+
+
+
+              <Grid item xs={6} md={2}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>Transporter ID</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="Transporter ID"
+                    name="TransporterID"
+                    value={formData.TransporterID}
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select Transporter ID
+                    </MenuItem>
+                    {transporterDetails}
+                  </Select>
+                </FormControl>
               </Grid>
           
               {/* <Grid item xs={6} md={2}>
@@ -190,6 +275,10 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                   </Select>
                 </FormControl>
               </Grid>
+
+
+
+
               <Grid item xs={3} md={2}>
                 <TextField
                   label="Vehicle No"
@@ -210,26 +299,57 @@ const MHEAccordion = ({ expanded, onAccordionChange, setFormData, jobNo  }) => {
                   onChange={(e) => handleChange(e, index)}
                 />
               </Grid>
-              <Grid item xs={3} md={2}>
+
+
+              <Grid item xs={6} md={2}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>WOLine No</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="WOLine No"
+                    name="WOLineNo"
+                    value={formData.WOLineNo}  
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select WOLine No
+                    </MenuItem>
+                    {workDetails}
+                  </Select>
+                </FormControl>
+              </Grid>
+              {/* workDetailsUOM */}
+              {/* <Grid item xs={6} md={2}>
                 <TextField
-                  label="Hours"
+                  label="UoM"
                   fullWidth
                   variant="outlined"
-                  name="Hours"
-                  value={formData.Hours}
+                  name="UoM"
+                  value={formData.UoM}
                   onChange={(e) => handleChange(e, index)}
                 />
+              </Grid> */}
+              <Grid item xs={6} md={2}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>UOM</InputLabel>
+                  <Select
+                    defaultValue=""
+                    label="UoM"
+                    name="UoM"
+                    value={formData.UoM}
+                    onChange={(e) => handleChange(e, index)}
+                  >
+                    <MenuItem value="" disabled>
+                      Select UOM
+                    </MenuItem>
+                    {workDetailsUOM}
+                  </Select>
+                </FormControl>
               </Grid>
-              <Grid item xs={3} md={2}>
-                <TextField
-                  label="WOLine No"
-                  fullWidth
-                  variant="outlined"
-                  name="WOLineNo"
-                  value={formData.WOLineNo}
-                  onChange={(e) => handleChange(e, index)}
-                />
-              </Grid>
+
+
+
+
               <Grid item xs={3} md={2}>
                 <TextField
                   label="Task Date"
